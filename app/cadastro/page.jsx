@@ -15,9 +15,7 @@ function validCPF(cpf) {
   s = 0; for (let i = 0; i < 10; i++) s += +cpf[i] * (11 - i)
   r = (s * 10) % 11; if (r === 10) r = 0; return r == +cpf[10]
 }
-export const dynamic = 'force-dynamic'
-
-export default function Cadastro() {
+function CadastroForm() {
   const params = useSearchParams()
   const token = params.get('token') || ''
   const [acomp, setAcomp] = useState([])
@@ -156,5 +154,15 @@ export default function Cadastro() {
         <p className="muted center" style={{ marginTop: '.6rem' }}>Ao enviar, o WhatsApp abrirá com uma mensagem de confirmação para a Viagens Club.</p>
       </form>
     </div>
+  )
+}
+
+import { Suspense } from 'react'
+
+export default function Cadastro() {
+  return (
+    <Suspense fallback={<div className="wrap center"><p className="muted">Carregando...</p></div>}>
+      <CadastroForm />
+    </Suspense>
   )
 }
